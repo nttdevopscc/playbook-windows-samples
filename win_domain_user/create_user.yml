@@ -25,6 +25,8 @@
       state: present
       attributes:
         profilePath: "{{ profilepath }}"
+  - debug:
+      msg: "{{ password }}"
   - name: sendmail
     script: SendMail_CreateUsers.ps1 "{{ user }}" "{{ password }}" "{{ sender }}" "{{ recipient }}" "{{ smtp_server }}" "{{ smtp_port }}"
 
