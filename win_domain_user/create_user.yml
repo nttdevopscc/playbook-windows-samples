@@ -2,6 +2,9 @@
 
 - hosts: windows
   gather_facts: false
+  vars:
+    # password: "{{ lookup('password', '/dev/null length=10 chars=ascii_letters,digits,hexdigits,punctuation') }}"
+    password: "{{ lookup('password', '/dev/null length=10 chars=ascii_letters,digits,hexdigits') }}"
   tasks:
   - name: create and update user information
     win_domain_user:
