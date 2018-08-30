@@ -1,0 +1,34 @@
+---
+
+- name: common tasks
+  hosts: all
+  gather_facts: no
+  become: yes
+  
+  roles:
+   - common
+   #- zabbix_agent
+
+- name: mariadb tasks
+  hosts: mysql
+  gather_facts: no
+  become: yes
+
+  roles:
+   - mysql
+
+- name: wordpress tasks
+  hosts: wordpress
+  gather_facts: no
+  become: yes
+
+  roles:
+   - wordpress
+
+- name: ssh tunnel server tasks
+  hosts: tunnel
+  gather_facts: no
+  become: yes
+
+  roles:
+   - tunnel

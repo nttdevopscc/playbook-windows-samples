@@ -1,0 +1,51 @@
+---
+
+- name: install epel-release
+  yum:
+    name: epel-release
+    state: present
+
+- name: install needed packages
+  yum:
+    name: '{{ item }}'
+    state: installed
+  with_items:
+    - httpd
+    - php
+    - php-mysql
+    - autossh
+
+- name: set timezone
+  ini_file:
+    path: /etc/php.ini
+    section: Date
+    option: date.timezone
+    value: '"Asia/Tokyo"'
+    backup: yes
+
+- name: php testpage
+  copy: src=phpinfo.php dest=/var/www/html/phpinfo.php owner=apache group=apache mode=0644 backup=no
+
+- name: start httpd
+  service:
+    name: httpd
+    enabled: yes
+    masked: no
+    state: started
+
+- name: copy wordpress packages
+  copy: src=wordpress-4.8-ja.tar.gz dest=/root owner=root group=root mode=0644 backup=no
+
+- name: unarchive wordpress packages
+  unarchive:
+    src: /root/wordpress-4.8-ja.tar.gz
+    dest: /var/www/html/
+    owner: apache
+    group: apache
+    remote_src: True
+
+- name: restart httpd
+  service: 
+    name: httpd
+    state: restarted
+

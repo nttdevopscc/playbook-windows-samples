@@ -1,0 +1,37 @@
+# ref. https://docs.ansible.com/ansible/2.6/modules/win_domain_user_module.html
+
+- hosts: windows
+  gather_facts: false
+  tasks:
+  - name: create and update user information
+    win_domain_user:
+      upn: "{{ user }}@{{ domain }}"
+      path: "{{ path }}"
+      name: "{{ user }}"
+      firstname: "{{ firstname }}"
+      surname: "{{ surname }}"
+      company: "{{ company }}"
+      password: "{{ password }}"
+      password_expired: yes
+      update_password: on_create
+      email: "{{ user }}@{{ maildomain }}"
+      groups:
+       - "{{ group }}"
+      groups_action: add
+      country: JP
+      state: present
+      attributes:
+        profilePath: "{{ profilepath }}"
+  - name: sendmail
+    script: SendMail_CreateUsers.ps1 "{{ user }}" "{{ password }}" "{{ user }}@{{ maildomain }}"
+
+#  delegate_to seems to not work on awx (HTTPSConnectionPool(host='localhost', port=5986)
+#  - name: sending an e-mail
+#    mail:
+#      host: "{{ smtp_server }}"
+#      port: "{{ smtp_port }}"
+#      from: "{{ sender }}"
+#      to:   "{{ recipient }}"
+#      subject: Ansible-report
+#      body: "test"
+#    delegate_to: localhost

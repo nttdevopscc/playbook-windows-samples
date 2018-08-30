@@ -1,0 +1,15 @@
+---
+
+#- name: install needed packages
+#  yum:
+#    name: '{{ item }}'
+#    state: installed
+#  with_items:
+#    - ipvsadm
+#
+#- name: start ipvsadm 
+#  service:
+#    name: ipvsadm 
+#    enabled: yes
+#    masked: no
+#    state: started

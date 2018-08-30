@@ -1,0 +1,15 @@
+---
+
+- name: enable NetworkManager
+  systemd:
+    name: NetworkManager
+    enabled: yes
+    masked: no
+    state: started
+
+- name: enable network.service
+  service:
+    name: network
+    enabled: yes
+    masked: no
+    state: started

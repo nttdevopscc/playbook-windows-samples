@@ -1,0 +1,10 @@
+# ref. https://docs.ansible.com/ansible/2.6/modules/win_domain_user_module.html
+- hosts: windows
+  gather_facts: false
+  tasks:
+  - name: disable the account
+    win_domain_user:
+      name: "{{ user }}"
+      path: "{{ path }}"
+      enabled: no
+

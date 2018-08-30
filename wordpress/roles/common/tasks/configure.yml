@@ -1,0 +1,21 @@
+---
+
+- name: set timezone to Asia/Tokyo
+  timezone:
+    name: Asia/Tokyo
+
+- name: yum update
+  yum: state=latest name=*
+
+- name: install needed packages
+  yum:
+    name: '{{ item }}'
+    state: installed
+  with_items:
+    - sysstat
+    - net-tools
+    - telnet
+    - iotop
+    - tmux
+    - tcpdump
+
