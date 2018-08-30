@@ -4,7 +4,7 @@ param(
     [parameter(Position=3,Mandatory=$true,ValueFromPipeline=$false)][string]$Sender,
     [parameter(Position=4,Mandatory=$true,ValueFromPipeline=$false)][string]$Recipient,
     [parameter(Position=5,Mandatory=$true,ValueFromPipeline=$false)][string]$SmtpServer,
-    [parameter(Position=6,Mandatory=$true,ValueFromPipeline=$false)][integer]$SmtpServerPort
+    [parameter(Position=6,Mandatory=$true,ValueFromPipeline=$false)][int]$SmtpServerPort
 )
 
 function SendMail () {
