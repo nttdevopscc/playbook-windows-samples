@@ -23,7 +23,7 @@
       attributes:
         profilePath: "{{ profilepath }}"
   - name: sendmail
-    script: SendMail_CreateUsers.ps1 "{{ user }}" "{{ password }}" "{{ user }}@{{ maildomain }}"
+    script: SendMail_CreateUsers.ps1 "{{ user }}" "{{ password }}" "{{ sender }}" "{{ recipient }}" "{{ smtp_server }}" "{{ smtp_port }}"
 
 #  delegate_to seems to not work on awx (HTTPSConnectionPool(host='localhost', port=5986)
 #  - name: sending an e-mail
