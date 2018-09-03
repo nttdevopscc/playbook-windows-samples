@@ -11,7 +11,6 @@
   - name: print password
     debug:
       msg: "{{ password }}"
-  tasks:
   - name: create and update user information
     win_domain_user:
       upn: "{{ user }}@{{ domain }}"
