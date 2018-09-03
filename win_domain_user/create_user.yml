@@ -3,8 +3,14 @@
 - hosts: windows
   gather_facts: false
   vars:
-    # password: "{{ lookup('password', '/dev/null length=10 chars=ascii_letters,digits,hexdigits,punctuation') }}"
-    password: "{{ lookup('password', '/dev/null length=10 chars=ascii_letters,digits,hexdigits') }}"
+    pwd_alias: "{{ lookup('password', '/dev/null length=10 chars=ascii_letters,digits,hexdigits') }}"
+  tasks:
+  - name: set password
+    set_fact:
+      password: "{{ pwd_alias }}"
+  - name: print password
+    debug:
+      msg: "{{ password }}"
   tasks:
   - name: create and update user information
     win_domain_user:
@@ -25,8 +31,6 @@
       state: present
       attributes:
         profilePath: "{{ profilepath }}"
-  - debug:
-      msg: "{{ password }}"
   - name: sendmail
     script: SendMail_CreateUsers.ps1 "{{ user }}" "{{ password }}" "{{ sender }}" "{{ recipient }}" "{{ smtp_server }}" "{{ smtp_port }}"
 

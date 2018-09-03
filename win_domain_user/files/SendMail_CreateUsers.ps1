@@ -11,7 +11,7 @@ function SendMail () {
 
     param($UserName, $Password, $Sender, $Recipient, $SmtpServer, $SmtpServerPort)
     $mail = New-Object System.Net.Mail.MailMessage($Sender, $Recipient)
-    $mail.Subject = "‚ ‚¢‚¤‚¦‚¨"
+    $mail.Subject = "Ansible-report(win domain accout)"
     $mail.Body = @"
   * ‚ ‚¢‚¤‚¦‚¨ *
   Username: $Username

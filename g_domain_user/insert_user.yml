@@ -1,0 +1,57 @@
+# need to be installed googlectl
+# https://github.com/kodamap/googlecli
+
+- hosts: ansiboo
+  gather_facts: false
+  vars:
+    pwd_alias: "{{ lookup('password', '/dev/null length=10 chars=ascii_letters,digits,hexdigits') }}"
+  tasks:
+  - name: set password
+    set_fact:
+      password: "{{ pwd_alias }}"
+  - name: print password
+    debug:
+      msg: "{{ password }}"
+  - name: insert google user
+    command:  >
+      googlectl user update
+      --password "{{ password }}"
+      --givenname "{{ givenname }}"
+      --familyname "{{ familyname }}"
+      "{{ user }}@{{ maildomain }}"
+    register: user_insert_result
+  - debug: var=user_insert_result.stdout_lines
+    when: user_insert_result is success
+
+  - name: insert google user to the group
+    command: googlectl group list
+    #command: >
+    #  googlectl group member insert
+    #  --groupkey "{{ groupkey }}"
+    #  "{{ user }}@{{ maildomain }}"
+    register: member_insert_result
+  - debug: var=member_insert_result.stdout_lines
+    when: member_insert_result is success
+
+  - name: sending an e-mail
+    mail:
+      host: "{{ smtp_server }}"
+      port: "{{ smtp_port }}"
+      from: "{{ sender }}"
+      to:   "{{ recipient }}"
+      subject: Ansible-report (g accout)
+      subtype: html
+      body: "
+<h3>System has been successfully provisioned.</h3>
+<ul>
+<li>User: {{ user }} </li>
+<li>Password: {{ password }} </li>
+</ul>
+
+- for debug:
+<p>
+{% for line in user_insert_result.stdout_lines[1:] %}  {{ line }}<br> {% endfor %}
+
+<p>
+{% for line in member_insert_result.stdout_lines[1:] %}  {{ line }}<br> {% endfor %}
+"
