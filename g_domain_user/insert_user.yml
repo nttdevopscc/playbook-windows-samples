@@ -24,7 +24,7 @@
     when: user_insert_result is success
 
   - name: insert google user to the group
-    ommand: >
+    command: >
       googlectl group member insert
       --groupkey "{{ groupkey }}"
       "{{ user }}@{{ maildomain }}"
