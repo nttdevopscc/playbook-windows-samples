@@ -14,7 +14,7 @@
       msg: "{{ password }}"
   - name: insert google user
     command:  >
-      googlectl user update
+      googlectl user insert
       --password "{{ password }}"
       --givenname "{{ givenname }}"
       --familyname "{{ familyname }}"
@@ -24,11 +24,10 @@
     when: user_insert_result is success
 
   - name: insert google user to the group
-    command: googlectl group list
-    #command: >
-    #  googlectl group member insert
-    #  --groupkey "{{ groupkey }}"
-    #  "{{ user }}@{{ maildomain }}"
+    ommand: >
+      googlectl group member insert
+      --groupkey "{{ groupkey }}"
+      "{{ user }}@{{ maildomain }}"
     register: member_insert_result
   - debug: var=member_insert_result.stdout_lines
     when: member_insert_result is success
@@ -47,11 +46,9 @@
 <li>User: {{ user }} </li>
 <li>Password: {{ password }} </li>
 </ul>
-
 - for debug:
 <p>
 {% for line in user_insert_result.stdout_lines[1:] %}  {{ line }}<br> {% endfor %}
-
 <p>
 {% for line in member_insert_result.stdout_lines[1:] %}  {{ line }}<br> {% endfor %}
 "
