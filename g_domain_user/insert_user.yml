@@ -3,12 +3,10 @@
 
 - hosts: ansiboo
   gather_facts: false
-  vars:
-    pwd_alias: "{{ lookup('password', '/dev/null length=10 chars=ascii_letters,digits,hexdigits') }}"
   tasks:
   - name: set password
     set_fact:
-      password: "{{ pwd_alias }}"
+      password: "{{ lookup('password', '/dev/null length=10 chars=ascii_letters,digits,hexdigits') }}"
   - name: print password
     debug:
       msg: "{{ password }}"
