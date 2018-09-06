@@ -7,7 +7,6 @@
   
   roles:
    - common
-   #- zabbix_agent
 
 - name: mariadb tasks
   hosts: mysql
@@ -25,10 +24,3 @@
   roles:
    - wordpress
 
-- name: ssh tunnel server tasks
-  hosts: tunnel
-  gather_facts: no
-  become: yes
-
-  roles:
-   - tunnel
