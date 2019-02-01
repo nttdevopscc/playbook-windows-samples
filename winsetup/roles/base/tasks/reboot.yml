@@ -1,0 +1,5 @@
+---
+
+- name: Reboot
+  win_reboot:
+  when: {{ reboot_required }} == "Y"

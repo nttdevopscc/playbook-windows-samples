@@ -1,0 +1,7 @@
+# https://docs.ansible.com/ansible/latest/modules/win_service_module.html#win-service-module
+
+- name: Set service startup mode to auto and ensure it is started
+  win_service:
+    name: wuauserv
+    start_mode: auto
+    state: started

@@ -1,0 +1,9 @@
+---
+
+- name: base setup
+  hosts: windows
+  gather_facts: no
+
+  roles:
+   - base
+

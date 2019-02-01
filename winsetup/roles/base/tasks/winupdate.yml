@@ -1,0 +1,15 @@
+# https://docs.ansible.com/ansible/latest/modules/win_updates_module.html#win-updates-module
+
+- name: Search-only, return list of found updates (if any), log to C:\ansible_wu.txt
+  win_updates:
+    category_names: SecurityUpdates
+    state: searched
+    log_path: C:\ansible_wu.txt
+
+- name: Install all security updates with automatic reboots
+  win_updates:
+    category_names:
+    - SecurityUpdates
+    reboot: yes
+
+

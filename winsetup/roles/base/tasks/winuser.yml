@@ -1,0 +1,8 @@
+# https://docs.ansible.com/ansible/latest/modules/win_user_module.html#win-user-module
+
+- name: passwork never expired
+  win_user:
+    name: "{{ targetuser }}"
+    password_never_expires: yes
+    
+

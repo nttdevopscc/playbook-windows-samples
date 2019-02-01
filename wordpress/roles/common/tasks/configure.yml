@@ -4,8 +4,10 @@
   timezone:
     name: Asia/Tokyo
 
-- name: yum update
-  yum: state=latest name=*
+- name: upgrade all packages
+  yum:
+    name: '*'
+    state: latest
 
 - name: install needed packages
   yum:

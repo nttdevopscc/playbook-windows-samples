@@ -1,0 +1,10 @@
+# https://docs.ansible.com/ansible/latest/modules/win_firewall_module.html#win-firewall-module
+
+- name: Enable firewall for Domain, Public and Private profiles
+  win_firewall:
+    state: disabled
+    profiles:
+    - Domain
+    - Private
+    - Public
+  tags: disable_firewall
