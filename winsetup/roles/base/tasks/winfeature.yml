@@ -1,0 +1,7 @@
+- name: Install Windows Features
+  win_feature:
+    name: "{{ item }}"
+    state: present
+  register: win_feature
+  with_items: "{{ win_features }}"    
+

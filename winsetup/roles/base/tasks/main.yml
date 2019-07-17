@@ -4,5 +4,6 @@
 - import_tasks: hostname.yml
 - import_tasks: winuser.yml
 - import_tasks: winservice.yml
+- import_tasks: winfeature.yml
 #- import_tasks: winfirewall.yml
 - import_tasks: winupdate.yml
