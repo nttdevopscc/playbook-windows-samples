@@ -13,10 +13,10 @@ These are test playbooks tested on Ansible/AWX.
     - [3.1. AUTHENTICATION](#31-authentication)
     - [3.2. SYSTEM](#32-system)
     - [3.3. LDAP Authentication](#33-ldap-authentication)
-- [Setting up a Windows Host](#setting-up-a-windows-host)
-- [4. playbook sample](#4-playbook-sample)
-    - [4.1. create domain user ( extra vars )](#41-create-domain-user--extra-vars-)
-    - [4.2. create gsuite user  ( extra vars )](#42-create-gsuite-user---extra-vars-)
+- [4. Setting up a Windows Host](#4-setting-up-a-windows-host)
+- [5. playbook sample](#5-playbook-sample)
+    - [5.1. create domain user ( extra vars )](#51-create-domain-user--extra-vars-)
+    - [5.2. create gsuite user  ( extra vars )](#52-create-gsuite-user---extra-vars-)
 
 <!-- /TOC -->
 
@@ -83,6 +83,7 @@ Docker version 18.09.7, build 2d0083d
 
 ```sh
 pip install docker
+pip install docker-compose
 ```
 
 * Node 10.x / NPM 6.x
@@ -92,7 +93,6 @@ https://github.com/nodesource/distributions/blob/master/README.md
 ```sh
 curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash -
 yum install -y nodejs
-npm -v #6.9.0
 ```
 
 *  Docker-Compose 
@@ -100,8 +100,6 @@ npm -v #6.9.0
 ```sh
 curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
-docker-compose --version
-pip install docker-compose
 ```
 
 ## 2.2. AWX
@@ -115,8 +113,9 @@ git clone https://github.com/ansible/awx
 cd awx/installer
 vi  inventory
 
-project_data_dir=/var/lib/awx/projects
 postgres_data_dir=/var/lib/awx/pgdocker
+docker_compose_dir=/var/lib/awx/awxcompose
+project_data_dir=/var/lib/awx/projects
 ```
 
 * install
@@ -198,7 +197,7 @@ LDAP GROUP TYPE PARAMETERS
 {}
 ```
 
-# Setting up a Windows Host
+# 4. Setting up a Windows Host
 
 https://docs.ansible.com/ansible/latest/user_guide/windows_setup.html
 
@@ -243,9 +242,9 @@ Listener
 ```
 
 
-# 4. playbook sample
+# 5. playbook sample
 
-## 4.1. create domain user ( extra vars )
+## 5.1. create domain user ( extra vars )
 
 ```txt
 ---
@@ -275,7 +274,7 @@ AttributeError: 'ShellModule' object has no attribute 'ECHO'
 ```
 ->  Disable "Enable Previlige escalation"
 
-## 4.2. create gsuite user  ( extra vars )
+## 5.2. create gsuite user  ( extra vars )
 
 ```txt
 ---
